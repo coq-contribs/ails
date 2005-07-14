@@ -26,10 +26,9 @@ Lemma conflict_beta_theta :
  (beta intr evad T + thetat intr 0 <= MinBeta)%R \/
  (2 * PI - MinBeta < beta intr evad T + thetat intr 0)%R.
 Proof with trivial.
-intros intr evad T hyp_intr; intros; set (beta_p := beta intr evad T);
- set (thetat_p := thetat intr); set (l_p := l intr evad T);
- set (conflict_p := conflict intr evad); fold l_p in H, H0;
- fold beta_p thetat_p in H1; fold conflict_p in H2...
+intros intr evad T hyp_intr; intros; set (beta_p := beta intr evad T) in H1;
+ set (thetat_p := thetat intr) in H1; set (l_p := l intr evad T) in H, H0;
+ set (conflict_p := conflict intr evad) in H2;
 assert (hyp1 : r_V = r_vi intr)...
 unfold r_V, r_vi in |- *; unfold vi in |- *; rewrite hyp_intr...
 assert (hyp2 : rho_V = rho_vi intr)...

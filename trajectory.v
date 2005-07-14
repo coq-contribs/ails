@@ -447,10 +447,9 @@ intro; unfold yp in |- *.
 assert (H := xi_derivable intr t).
 assert (H0 := yi_derivable intr t).
 assert (H1 := thetat_derivable t).
-set (xi_p := xi intr).
-set (yi_p := yi intr).
-set (thetat_p := thetat intr).
-fold xi_p in H; fold yi_p in H0; fold thetat_p in H1.
+set (xi_p := xi intr) in H |- *.
+set (yi_p := yi intr) in H0 |- *.
+set (thetat_p := thetat intr) in H1 |- *.
 reg.
 assert (H2 := cond_x intr t).
 assert (H3 := cond_y intr t).
@@ -624,10 +623,9 @@ intro; unfold xp in |- *.
 assert (H := xi_derivable intr t).
 assert (H0 := yi_derivable intr t).
 assert (H1 := thetat_derivable t).
-set (xi_p := xi intr).
-set (yi_p := yi intr).
-set (thetat_p := thetat intr).
-fold xi_p in H; fold yi_p in H0; fold thetat_p in H1.
+set (xi_p := xi intr) in H |- *.
+set (yi_p := yi intr) in H0 |- *.
+set (thetat_p := thetat intr) in H1 |- *.
 reg.
 assert (H2 := cond_x intr t).
 assert (H3 := cond_y intr t).
