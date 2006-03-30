@@ -68,8 +68,8 @@ Lemma D_Rsqr_u_epsilon_1 :
  derive_pt (fun y : R => Rsqr (u eps y)) t (fct_der2 eps t) =
  (2 * u eps t * derive_pt (u eps) t (d_u eps t))%R. 
 intros; set (f := u eps).
-cut (derivable_pt f t); [ intro | apply (d_u eps t) ].
-cut (derive_pt f t X = derive_pt f t (d_u eps t)); [ intro | apply pr_nu ].
+cut (derivable_pt f t); [ intro H | apply (d_u eps t) ].
+cut (derive_pt f t H = derive_pt f t (d_u eps t)); [ intro | apply pr_nu ].
 reg.
 Qed.
 

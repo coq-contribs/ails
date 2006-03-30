@@ -75,7 +75,7 @@ intro;
 set (xi_p := fun t : R => xi intr t).
 intro;
  cut (derivable_pt (fun t : R => ((xi_p t - xi_p 0) / cos (alphas t))%R) x).
-intro; unfold derivable_pt in X; elim X; intros l H1.
+intro X; unfold derivable_pt in X; elim X; intros l H1.
 unfold derivable_pt in |- *; apply existT with l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
  unfold derivable_pt_abs in |- *; unfold derivable_pt_lim in |- *; 
@@ -114,7 +114,7 @@ intro;
 set (yi_p := fun t : R => yi intr t).
 intro;
  cut (derivable_pt (fun t : R => ((yi_p t - yi_p 0) / sin (alphas t))%R) x).
-intro; unfold derivable_pt in X.
+intro X; unfold derivable_pt in X.
 elim X; intros l H1.
 unfold derivable_pt in |- *; apply existT with l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
@@ -156,7 +156,7 @@ intro;
 set (xi_p := fun t : R => xi intr t).
 intro;
  cut (derivable_pt (fun t : R => ((xi_p t - xi_p 0) / cos (alphas t))%R) x).
-intro; unfold derivable_pt in X; elim X; intros l H1.
+intro X; unfold derivable_pt in X; elim X; intros l H1.
 unfold derivable_pt in |- *; apply existT with l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
  unfold derivable_pt_abs in |- *; unfold derivable_pt_lim in |- *; 
@@ -211,7 +211,7 @@ replace (derive_pt (xi intr) t (xi_derivable intr t)) with
  (derive_pt ((Rs * comp cos alphas_p)%F + fct_cte (xi intr 0)) t (H t)).
 unfold plus_fct, mult_fct, comp, fct_cte in |- *.
 set (H0 := Rs_derivable t).
-cut (derivable_pt alphas_p t); [ intro | apply (cond_D1 alphas) ].
+cut (derivable_pt alphas_p t); [ intro X | apply (cond_D1 alphas) ].
 replace (derive_pt alphas t (cond_D1 alphas t)) with (derive_pt alphas_p t X);
  [ idtac | apply pr_nu ].
 reg.
@@ -253,9 +253,9 @@ Lemma Dyi :
   Rs t * cos (alphas t) * derive_pt alphas t (cond_D1 alphas t))%R.
 intro.
 set (H := Rs_derivable t).
-cut (derivable_pt alphas_p t); [ intro | apply (cond_D1 alphas) ].
+cut (derivable_pt alphas_p t); [ intro X | apply (cond_D1 alphas) ].
 cut (derivable_pt ((Rs * comp sin alphas_p)%F + fct_cte (yi intr 0)) t);
- [ intro | reg ].
+ [ intro X0 | reg ].
 replace (derive_pt (yi intr) t (yi_derivable intr t)) with
  (derive_pt ((Rs * comp sin alphas_p)%F + fct_cte (yi intr 0)) t X0).
 replace (derive_pt alphas t (cond_D1 alphas t)) with (derive_pt alphas_p t X);
@@ -441,8 +441,8 @@ replace (derive_pt alphas t (cond_D1 alphas t)) with (f t);
  [ idtac | reflexivity ].
 replace (derive_pt (derive alphas (cond_D1 alphas)) t (cond_D2 alphas t))
  with (derive_pt f t (cond_D2 alphas t)); [ idtac | reflexivity ].
-cut (derivable_pt Rs t); [ intro | apply Rs_derivable ].
-cut (derivable_pt f t); [ intro | apply (cond_D2 alphas) ].
+cut (derivable_pt Rs t); [ intro X | apply Rs_derivable ].
+cut (derivable_pt f t); [ intro X0 | apply (cond_D2 alphas) ].
 reg.
 replace (derive_pt f t (cond_D2 alphas t)) with (derive_pt f t X0);
  [ idtac | apply pr_nu ].
@@ -466,14 +466,14 @@ Lemma D_Rs_alphas2 :
    derive_pt alphas t (cond_D1 alphas t)))%R.
 intro.
 cut (derivable_pt (fun x : R => (vi intr * sin (thetat x - alphas x))%R) t).
-intro.
+intro X.
 replace
  (derive_pt (fun y : R => (Rs y * derive_pt alphas y (cond_D1 alphas y))%R) t
     (fct_der5 t)) with
  (derive_pt (fun x : R => (vi intr * sin (thetat x - alphas x))%R) t X).
 set (f := d2 alphas).
-cut (derivable_pt f t); [ intro | apply (cond_D1 alphas) ].
-cut (derivable_pt thetat t); [ intro | apply thetat_derivable ].
+cut (derivable_pt f t); [ intro X0 | apply (cond_D1 alphas) ].
+cut (derivable_pt thetat t); [ intro X1 | apply thetat_derivable ].
 reg.
 unfold fct_cte, minus_fct in |- *.
 replace (derive_pt f t (cond_D1 alphas t)) with (derive_pt f t X0);
@@ -811,8 +811,8 @@ ring.
 ring.
 ring.
 unfold G in |- *.
-cut (derivable_pt Rs t); [ intro | apply Rs_derivable ].
-cut (derivable_pt F t); [ intro | apply F_derivable ].
+cut (derivable_pt Rs t); [ intro X | apply Rs_derivable ].
+cut (derivable_pt F t); [ intro X0 | apply F_derivable ].
 reg.
 replace (derive_pt F t (F_derivable t)) with (derive_pt F t X0);
  [ idtac | apply pr_nu ].
