@@ -732,14 +732,8 @@ Lemma D_F :
  forall t : R,
  derive_pt F t (F_derivable t) = (vi intr * cos (rho (vi intr) * (t / 2)))%R.
 intro; unfold F in |- *; reg.
-repeat rewrite Rmult_assoc.
-rewrite (Rmult_comm (/ 2)).
-assert (H := double_var).
-unfold Rdiv in H; rewrite <- H.
-rewrite (Rmult_comm (rho (vi intr))); unfold Rdiv in |- *;
- repeat rewrite Rmult_assoc; rewrite <- Rinv_l_sym.
-rewrite Rmult_1_r; reflexivity.
-assert (H0 := rho_pos (vi intr)); red in |- *; intro; rewrite H1 in H0;
+unfold Rdiv in |- *;  field.
+assert (H0 := rho_pos (vi intr)); red in |- *; intro; rewrite H in H0;
  elim (Rlt_irrefl 0 H0).
 Qed.
 

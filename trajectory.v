@@ -475,7 +475,7 @@ replace (derive_pt yi_p t H0) with
  (derive_pt (y intr) t (cond_diff (y intr) t)); [ idtac | apply pr_nu ].
 rewrite H2; rewrite H3.
 rewrite sin_minus.
-unfold fct_cte, vi, thetat in |- *.
+unfold fct_cte, vi, thetat_p, thetat in |- *.
 ring.
 Qed.
 
@@ -552,10 +552,10 @@ Lemma Dhy :
  derive_pt hy t (hy_derivable t) = (- vi intr * sin (rho_vi * t))%R.
 Proof with trivial.
 intro; unfold hy in |- *; reg...
-replace (r_vi * rho_vi)%R with (v (vi intr))...
-unfold rho_vi, r_vi in |- *; unfold r in |- *; unfold Rdiv in |- *;
- rewrite Rmult_assoc; rewrite <- Rinv_l_sym...
-rewrite Rmult_1_r...
+replace (vi intr:R) with (r_vi * rho_vi)%R.
+ring.
+unfold rho_vi, r_vi in |- *; unfold r in |- *.
+field.
 assert (H := rho_pos (vi intr)); red in |- *; intro; rewrite H0 in H;
  elim (Rlt_irrefl _ H)...
 Qed.
@@ -650,7 +650,7 @@ replace (derive_pt yi_p t H0) with
 replace (derive_pt xi_p t H) with
  (derive_pt (x intr) t (cond_diff (x intr) t)); [ idtac | apply pr_nu ].
 unfold vi in |- *.
-rewrite H2; rewrite H3; rewrite cos_minus; ring.
+rewrite H2; rewrite H3; rewrite cos_minus; unfold thetat_p, thetat; ring.
 Qed.
 
 Lemma Dx0_PI :
@@ -730,10 +730,10 @@ Lemma Dhx :
  derive_pt hx t (hx_derivable t) = (vi intr * cos (rho_vi * t))%R.
 Proof with trivial.
 intro; unfold hx in |- *; reg...
-replace (r_vi * rho_vi)%R with (v (vi intr))...
-unfold rho_vi, r_vi in |- *; unfold r in |- *; unfold Rdiv in |- *;
- rewrite Rmult_assoc; rewrite <- Rinv_l_sym...
-rewrite Rmult_1_r...
+replace (vi intr:R) with (r_vi * rho_vi)%R.
+ring.
+unfold rho_vi, r_vi in |- *; unfold r in |- *.
+field.
 assert (H := rho_pos (vi intr)); red in |- *; intro; rewrite H0 in H;
  elim (Rlt_irrefl _ H)...
 Qed.
@@ -838,17 +838,19 @@ Qed.
 Lemma isometric_evader :
  forall t : R, Rsqr_evader_distance t = (Rsqr (xp t) + Rsqr (yp t))%R.
 intro; unfold Rsqr_evader_distance, xp, yp in |- *; repeat rewrite Rsqr_plus;
- ring; repeat rewrite Rsqr_mult; rewrite <- (Rsqr_neg (sin (thetat intr 0)));
- replace
-  (Rsqr (sin (thetat intr 0)) * Rsqr (xi intr t - xe) +
-   (Rsqr (sin (thetat intr 0)) * Rsqr (yi intr t - ye) +
-    (Rsqr (cos (thetat intr 0)) * Rsqr (xi intr t - xe) +
-     Rsqr (cos (thetat intr 0)) * Rsqr (yi intr t - ye))))%R with
-  (Rsqr (yi intr t - ye) *
-   (Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) +
-   Rsqr (xi intr t - xe) *
-   (Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))))%R;
- [ repeat rewrite sin2_cos2; repeat rewrite Rmult_1_r; reflexivity | ring ].
+ ring_simplify; repeat rewrite Rsqr_mult;
+ rewrite <- (Rsqr_neg (sin (thetat intr 0)));
+ pattern (Rsqr (xi intr t - xe)) at 1 in |- *.
+ replace (Rsqr (xi intr t - xe)) with
+ ((Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) *
+  Rsqr (xi intr t - xe))%R.
+ pattern (Rsqr (yi intr t - ye)) at 1 in |- *.
+ replace (Rsqr (yi intr t - ye)) with
+  ((Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) *
+   Rsqr (yi intr t - ye))%R.
+ ring.
+ rewrite sin2_cos2 in |- *;  ring.
+ rewrite sin2_cos2 in |- *;  ring.
 Qed.
 
 Lemma xpt_xp0 :
@@ -871,18 +873,20 @@ Lemma isometric_intruder :
  forall t : R,
  Rsqr_intruder_distance t = (Rsqr (xp t - xp 0) + Rsqr (yp t - yp 0))%R.
 intro; unfold Rsqr_intruder_distance in |- *; rewrite xpt_xp0;
- rewrite ypt_yp0; repeat rewrite Rsqr_plus; ring; repeat rewrite Rsqr_mult;
- rewrite <- Rsqr_neg;
- replace
-  (Rsqr (sin (thetat intr 0)) * Rsqr (xi intr t - xi intr 0) +
-   (Rsqr (sin (thetat intr 0)) * Rsqr (yi intr t - yi intr 0) +
-    (Rsqr (cos (thetat intr 0)) * Rsqr (xi intr t - xi intr 0) +
-     Rsqr (cos (thetat intr 0)) * Rsqr (yi intr t - yi intr 0))))%R with
-  (Rsqr (yi intr t - yi intr 0) *
-   (Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) +
-   Rsqr (xi intr t - xi intr 0) *
-   (Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))))%R;
- [ repeat rewrite sin2_cos2; repeat rewrite Rmult_1_r; reflexivity | ring ].
+ rewrite ypt_yp0; repeat rewrite Rsqr_plus; ring_simplify;
+ repeat rewrite Rsqr_mult;
+ rewrite <- Rsqr_neg.
+ pattern (Rsqr (xi intr t - xi intr 0)) at 1 in |- *.
+ replace (Rsqr (xi intr t - xi intr 0)) with
+ ((Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) *
+  Rsqr (xi intr t - xi intr 0))%R.
+ pattern (Rsqr (yi intr t - yi intr 0)) at 1 in |- *.
+ replace (Rsqr (yi intr t - yi intr 0)) with
+  ((Rsqr (sin (thetat intr 0)) + Rsqr (cos (thetat intr 0))) *
+   Rsqr (yi intr t - yi intr 0))%R.
+ ring.
+ rewrite sin2_cos2 in |- *;  ring.
+ rewrite sin2_cos2 in |- *;  ring.
 Qed.
 
 Lemma majoration :

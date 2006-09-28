@@ -271,13 +271,13 @@ cut (l * sin (2 * PI - a) + r_V * (cos (rho_V * T) - 1) <= - y)%R.
 intros; rewrite (Rsqr_neg y);
  apply (Math_prop_no_conflict_1 (2 * PI - a) l x (- y) T H H0 H7 H6 H5).
 replace (2 * PI - a)%R with (- a + 2 * INR 1 * PI)%R;
- [ rewrite (cos_period (- a) 1); rewrite cos_neg; assumption | ring ].
+ [ rewrite (cos_period (- a) 1); rewrite cos_neg; assumption | simpl; ring ].
 replace (2 * PI - a)%R with (- a + 2 * INR 1 * PI)%R;
  [ rewrite (sin_period (- a) 1); rewrite sin_neg;
     replace (l * - sin a + r_V * (cos (rho_V * T) - 1))%R with
      (- (l * sin a - r_V * (cos (rho_V * T) - 1)))%R;
-    [ apply Ropp_ge_le_contravar; apply Rle_ge; assumption | ring ]
- | ring ].
+    [ apply Ropp_ge_le_contravar; apply Rle_ge; assumption | simpl; ring ]
+ | simpl; ring ].
 generalize (Rplus_le_compat_l (PI / 2 - a) (3 * (PI / 2)) a H1);
  replace (PI / 2 - a + 3 * (PI / 2))%R with (2 * PI - a)%R.
 replace (PI / 2 - a + a)%R with (PI / 2)%R.
@@ -310,9 +310,9 @@ intros; rewrite Rsqr_mult; rewrite (Rsqr_neg (sin a)); rewrite <- H3;
  rewrite <- H4; rewrite <- Rsqr_mult;
  apply (Math_prop_alarm_1 (2 * PI - a) l T H H0 H6 H5).
 replace (2 * PI - a)%R with (- a + 2 * INR 1 * PI)%R;
- [ rewrite (sin_period (- a) 1); apply sin_neg | ring ].
+ [ rewrite (sin_period (- a) 1); apply sin_neg | simpl; ring ].
 replace (2 * PI - a)%R with (- a + 2 * INR 1 * PI)%R;
- [ rewrite (cos_period (- a) 1); apply cos_neg | ring ].
+ [ rewrite (cos_period (- a) 1); apply cos_neg | simpl; ring ].
 generalize (Rplus_le_compat_l (MinBeta - a) (2 * PI - MinBeta) a H1);
  replace (MinBeta - a + (2 * PI - MinBeta))%R with (2 * PI - a)%R;
  [ replace (MinBeta - a + a)%R with MinBeta; [ intro; assumption | ring ]
