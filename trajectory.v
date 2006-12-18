@@ -16,6 +16,7 @@
 
 Section trajectory.
 
+Require Import Bool.
 Require Import Reals.
 Require Import trajectory_const.
 Require Import rrho.

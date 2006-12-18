@@ -14,6 +14,7 @@
 (* 02110-1301 USA                                                     *)
 
 
+Require Import Bool.
 Require Import Reals.
 Require Import trajectory_const.
 Require Import trajectory_def.
