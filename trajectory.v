@@ -24,6 +24,7 @@ Require Import constants.
 Require Import ycngftys.
 Require Import ycngstys.
 Require Import Omega.
+Require Import Bool.
 
 Variable intr : Trajectory.
 Variable evad : EvaderTrajectory.

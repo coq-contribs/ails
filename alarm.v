@@ -15,6 +15,7 @@
 
 
 Require Import Reals.
+Require Import Bool.
 Require Import trajectory_const.
 Require Import trajectory_def.
 Require Import constants.
