@@ -31,15 +31,12 @@ Definition Rs (t : R) : R :=
 
 Axiom
   alphas_exists :
-    sigT
-      (fun f : Differential_D2 =>
+    { f : Differential_D2 |
        forall t : R,
        xi intr t = (Rs t * cos (f t) + xi intr 0)%R /\
-       yi intr t = (Rs t * sin (f t) + yi intr 0)%R).
+       yi intr t = (Rs t * sin (f t) + yi intr 0)%R }.
 
-Definition alphas := match alphas_exists with
-                     | existT a b => a
-                     end.
+Definition alphas := let (a,_) := alphas_exists in a.
 
 Lemma alphas_def :
  forall t : R,
@@ -92,7 +89,7 @@ set (xi_p := fun t : R => xi intr t).
 intro;
  cut (derivable_pt (fun t : R => ((xi_p t - xi_p 0) / cos (alphas t))%R) x).
 intro X; unfold derivable_pt in X; elim X; intros l H1.
-unfold derivable_pt in |- *; apply existT with l.
+unfold derivable_pt in |- *; exists l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
  unfold derivable_pt_abs in |- *; unfold derivable_pt_lim in |- *; 
  intros.
@@ -132,7 +129,7 @@ intro;
  cut (derivable_pt (fun t : R => ((yi_p t - yi_p 0) / sin (alphas t))%R) x).
 intro X; unfold derivable_pt in X.
 elim X; intros l H1.
-unfold derivable_pt in |- *; apply existT with l.
+unfold derivable_pt in |- *; exists l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
  unfold derivable_pt_abs in |- *; unfold derivable_pt_lim in |- *; 
  intros.
@@ -173,7 +170,7 @@ set (xi_p := fun t : R => xi intr t).
 intro;
  cut (derivable_pt (fun t : R => ((xi_p t - xi_p 0) / cos (alphas t))%R) x).
 intro X; unfold derivable_pt in X; elim X; intros l H1.
-unfold derivable_pt in |- *; apply existT with l.
+unfold derivable_pt in |- *; exists l.
 unfold derivable_pt_abs in H1; unfold derivable_pt_lim in H1;
  unfold derivable_pt_abs in |- *; unfold derivable_pt_lim in |- *; 
  intros.
@@ -233,9 +230,9 @@ replace (derive_pt alphas t (cond_D1 alphas t)) with (derive_pt alphas_p t X);
 reg.
 unfold comp, alphas_p in |- *; ring.
 unfold derive_pt in |- *.
-unfold projT1 in |- *.
 case (H t).
 case (xi_derivable intr t).
+simpl.
 intros.
 eapply uniqueness_limite.
 unfold derivable_pt_abs in d0.
@@ -280,9 +277,9 @@ unfold plus_fct, mult_fct, comp, fct_cte in |- *.
 reg.
 unfold comp, alphas_p in |- *; ring.
 unfold derive_pt in |- *.
-unfold projT1 in |- *.
 case X0.
 case (yi_derivable intr t).
+simpl.
 intros.
 eapply uniqueness_limite.
 unfold derivable_pt_abs in d0.
@@ -497,8 +494,8 @@ replace (derive_pt f t (cond_D1 alphas t)) with (derive_pt f t X0);
 replace (derive_pt thetat t (thetat_derivable t)) with
  (derive_pt thetat t X1); [ idtac | apply pr_nu ].
 ring.
-unfold derive_pt in |- *; unfold projT1 in |- *.
-case X; case (fct_der5 t); intros.
+unfold derive_pt in |- *.
+case X; case (fct_der5 t); simpl; intros.
 eapply uniqueness_limite.
 unfold derivable_pt_abs in d0; apply d0.
 unfold derivable_pt_lim in |- *; intros.

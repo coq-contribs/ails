@@ -78,15 +78,12 @@ Definition d : R := Die 0 0.
 
 Axiom
   beta_exists :
-    sigT
-      (fun beta : R =>
+    { beta : R |
        xe = (l * cos beta + xi intr 0)%R /\
        ye = (yi intr 0 - l * sin beta)%R /\
-       (0 <= beta + thetat intr 0 < 2 * PI)%R).
+       (0 <= beta + thetat intr 0 < 2 * PI)%R }.
 
-Definition beta := match beta_exists with
-                   | existT a b => a
-                   end.
+Definition beta := let (a,_) := beta_exists in a.
 
 Lemma beta_def :
  xe = (l * cos beta + xi intr 0)%R /\
