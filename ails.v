@@ -44,7 +44,7 @@ Definition trkrate (phi : Bank) : R :=
 
 Lemma cond1_0 : (- toDeg MaxBank <= 0)%R.
 left; rewrite <- Ropp_0; apply Ropp_lt_gt_contravar; unfold toDeg in |- *;
- repeat apply Rmult_lt_0_compat.
+repeat simple apply Rmult_lt_0_compat.
 unfold MaxBank in |- *; unfold Rdiv in |- *; apply Rmult_lt_0_compat.
 prove_sup.
 apply Rinv_0_lt_compat; prove_sup.
@@ -53,7 +53,7 @@ apply Rinv_0_lt_compat; apply PI_RGT_0.
 Qed.
 
 Lemma cond2_0 : (0 <= toDeg MaxBank)%R.
-left; unfold toDeg in |- *; repeat apply Rmult_lt_0_compat.
+left; unfold toDeg in |- *; repeat simple apply Rmult_lt_0_compat.
 unfold MaxBank in |- *; unfold Rdiv in |- *; apply Rmult_lt_0_compat.
 prove_sup.
 apply Rinv_0_lt_compat; prove_sup.

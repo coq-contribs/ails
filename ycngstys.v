@@ -876,7 +876,7 @@ apply Rplus_le_le_0_compat.
 replace
  (- Rsqr (derive_pt alphas t (cond_D1 alphas t)) * G t * (Rs t + F t))%R with
  (Rsqr (derive_pt alphas t (cond_D1 alphas t)) * - G t * (Rs t + F t))%R.
-repeat apply Rmult_le_pos.
+repeat simple apply Rmult_le_pos.
 apply Rle_0_sqr.
 rewrite <- Ropp_0.
 apply Ropp_ge_le_contravar.
@@ -932,13 +932,13 @@ rewrite <- Ropp_0; apply Ropp_lt_gt_contravar; assumption.
 apply Rplus_lt_le_0_compat; assumption.
 ring.
 unfold F in |- *.
-repeat apply Rmult_le_pos.
+repeat simple apply Rmult_le_pos.
 left; prove_sup0.
 unfold Rdiv in |- *; left; apply Rmult_lt_0_compat.
 apply TypeSpeed_pos.
 apply Rinv_0_lt_compat; apply rho_pos.
 apply sin_ge_0.
-unfold Rdiv in |- *; repeat apply Rmult_le_pos.
+unfold Rdiv in |- *; repeat simple apply Rmult_le_pos.
 left; apply rho_pos.
 assumption.
 left; apply Rinv_0_lt_compat; prove_sup0.
@@ -971,7 +971,7 @@ left; apply Rlt_le_trans with 0%R.
 rewrite <- Ropp_0.
 apply Ropp_lt_gt_contravar.
 apply PI2_RGT_0.
-unfold Rdiv in |- *; repeat apply Rmult_le_pos.
+unfold Rdiv in |- *; repeat simple apply Rmult_le_pos.
 left; apply rho_pos.
 assumption.
 left; apply Rinv_0_lt_compat; prove_sup0.
