@@ -24,8 +24,8 @@
 #########################
 
 OCAMLLIBS:=
-COQLIBS:= -R . ails
-COQDOCLIBS:=-R . ails
+COQLIBS:= -R . AILS
+COQDOCLIBS:=-R . AILS
 
 ##########################
 #                        #
@@ -91,24 +91,7 @@ GFILES:=$(VFILES:.v=.g)
 HTMLFILES:=$(VFILES:.v=.html)
 GHTMLFILES:=$(VFILES:.v=.g.html)
 
-all: pi_ineq.vo\
-  trajectory_const.vo\
-  rrho.vo\
-  trajectory_def.vo\
-  constants.vo\
-  ycngftys.vo\
-  ycngstys.vo\
-  ails_def.vo\
-  math_prop.vo\
-  tau.vo\
-  ails.vo\
-  trajectory.vo\
-  measure2state.vo\
-  ails_trajectory.vo\
-  alarm.vo\
-  alpha_no_conflict.vo\
-  correctness.vo
-
+all: $(VOFILES) 
 spec: $(VIFILES)
 
 gallina: $(GFILES)
@@ -137,8 +120,6 @@ all-gal.ps: $(VFILES)
 
 .PHONY: all opt byte archclean clean install depend html
 
-.SUFFIXES: .v .vo .vi .g .html .tex .g.tex .g.html
-
 %.vo %.glob: %.v
 	$(COQC) -dump-glob $*.glob $(COQDEBUG) $(COQFLAGS) $*
 
@@ -160,13 +141,8 @@ all-gal.ps: $(VFILES)
 %.g.html: %.v %.glob
 	$(COQDOC) -glob-from $*.glob -html -g $< -o $@
 
-%.v.d.raw: %.v
-	$(COQDEP) -slash $(COQLIBS) "$<" > "$@"\
-	  || ( RV=$$?; rm -f "$@"; exit $${RV} )
-
-%.v.d: %.v.d.raw
-	$(HIDE)sed 's/\(.*\)\.vo[[:space:]]*:/\1.vo \1.glob:/' < "$<" > "$@" \
-	  || ( RV=$$?; rm -f "$@"; exit $${RV} )
+%.v.d: %.v
+	$(COQDEP) -glob -slash $(COQLIBS) "$<" > "$@" || ( RV=$$?; rm -f "$@"; exit $${RV} )
 
 byte:
 	$(MAKE) all "OPT:=-byte"
