@@ -207,9 +207,8 @@ Definition alphas_p : R -> R := d2 alphas.
 Lemma fct_der4 :
  forall t : R,
  derivable_pt ((Rs * comp cos alphas_p)%F + fct_cte (xi intr 0)) t.
-intro; reg.
-apply Rs_derivable.
-apply (cond_D1 alphas).
+intro; reg. apply (cond_D1 alphas). 
+apply Rs_derivable. 
 Qed.
 
 (**********)
