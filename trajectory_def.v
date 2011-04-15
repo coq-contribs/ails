@@ -135,8 +135,7 @@ unfold Rdiv in |- *;
   (g * (- tan MaxBank * / h tr0))%R.
 apply Rmult_le_compat_l.
 left; apply g_pos.
- pattern (/ h tr0)%R at 1 in |- *; rewrite Rmult_comm;
-  pattern (/ h tr0)%R at 2 in |- *; rewrite Rmult_comm;
+  setoid_rewrite Rmult_comm at 1 2.
   apply Rmult_le_compat_l.
 left; apply (Rinv_0_lt_compat (h tr0) (TypeSpeed_pos (h tr0))).
 rewrite <- tan_neg.
