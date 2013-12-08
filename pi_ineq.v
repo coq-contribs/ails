@@ -95,7 +95,7 @@ unfold PI_ub in |- *; simpl in |- *; rewrite <- Rinv_l_sym;
  [ idtac | discrR ]...
 pattern 1%R at 11 in |- *; rewrite <- Rplus_0_r; repeat rewrite Rplus_assoc;
  apply Rplus_lt_compat_l; rewrite Ropp_mult_distr_l_reverse;
- rewrite Rmult_1_l; apply Rplus_lt_reg_r with (/ 3)%R; 
+ rewrite Rmult_1_l; apply Rplus_lt_reg_l with (/ 3)%R; 
  rewrite Rplus_0_r; rewrite <- Rplus_assoc; rewrite Rplus_opp_r;
  rewrite Rplus_0_l; apply Rinv_lt_contravar; prove_sup...
 Qed.
