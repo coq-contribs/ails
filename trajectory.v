@@ -26,6 +26,8 @@ Require Import ycngftys.
 Require Import ycngstys.
 Require Import Omega.
 
+Unset Standard Proposition Elimination Names.
+
 Variable intr : Trajectory.
 Variable evad : EvaderTrajectory.
 Variable T : TimeT.

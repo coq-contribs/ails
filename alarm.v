@@ -29,6 +29,8 @@ Require Import trajectory.
 Require Import measure2state.
 Require Import ails_trajectory.
 
+Unset Standard Proposition Elimination Names.
+
 Lemma AlertRange_pos : (0 < AlertRange)%R.
 unfold AlertRange in |- *; prove_sup.
 Qed.

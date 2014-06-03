@@ -21,6 +21,8 @@ Require Import ails_def.
 Require Import tau.
 Require Import Omega.
 
+Unset Standard Proposition Elimination Names.
+
 Fixpoint rest (p r s n : nat) {struct n} : nat :=
   match n with
   | O => r

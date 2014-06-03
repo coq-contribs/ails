@@ -33,6 +33,8 @@ Require Import measure2state.
 Require Import ails_trajectory.
 Require Import alarm.
 
+Unset Standard Proposition Elimination Names.
+
 Variable intr : Trajectory.
 Variable evad : EvaderTrajectory.
 Variable T : TimeT.

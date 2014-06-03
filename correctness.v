@@ -31,6 +31,8 @@ Require Import ails_trajectory.
 Require Import alarm.
 Require Import alpha_no_conflict.
 
+Unset Standard Proposition Elimination Names.
+
 (***********************************************************)
 (************************ THEOREMS *************************)
 (***********************************************************)

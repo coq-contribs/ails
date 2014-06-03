@@ -18,6 +18,8 @@ Require Import Reals.
 Require Import ails_def.
 Require Import trajectory_const.
 
+Unset Standard Proposition Elimination Names.
+
 (**********)
 Definition dx (intruder evader : State) (t : R) : R :=
   (xt intruder + t * intruderSpeed * cosd (heading intruder) -

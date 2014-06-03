@@ -22,6 +22,7 @@ Require Import rrho.
 Require Import trajectory_def.
 Require Import constants.
 
+Unset Standard Proposition Elimination Names.
 
 Variable intr : Trajectory.
 

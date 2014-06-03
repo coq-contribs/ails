@@ -23,6 +23,8 @@ Require Import constants.
 Require Import ycngftys.
 Require Import rrho.
 
+Unset Standard Proposition Elimination Names.
+
 Variable intr : Trajectory.
 
 Definition thetat : R -> R := theta intr.
