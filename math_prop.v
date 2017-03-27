@@ -101,7 +101,7 @@ apply Rplus_le_reg_l with (cos (rho_V * T)); rewrite Rplus_0_r;
  rewrite Rplus_opp_l; rewrite Rplus_0_r; generalize (COS_bound (rho_V * T));
  intro; elim H3; intros; assumption.
 unfold r_V in |- *; left; apply r_ub_0.
-apply Rplus_le_reg_l with (-1)%R; unfold Rminus in |- *;
+apply Rplus_le_reg_l with (Ropp 1); unfold Rminus in |- *;
  repeat rewrite <- Rplus_assoc; repeat rewrite Rplus_opp_l;
  repeat rewrite Rplus_0_l; apply Ropp_ge_le_contravar; 
  apply Rle_ge; apply Rle_trans with (cos (rho_ub V * MaxT)).
